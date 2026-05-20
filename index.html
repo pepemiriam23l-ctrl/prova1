@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.B.M.C. – Progetto Cagnazzi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bruno:   #3D2B1F;
+      --cuoio:   #6B4C35;
+      --ocra:    #C8A46E;
+      --carta:   #F5EDD8;
+      --bianco:  #FAFAF7;
+      --muschio: #2C4A3E;
+      --sigillo: #8B3A2A;
+      --grafite: #4A4037;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--carta);
+      color: var(--grafite);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: var(--bruno);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 58px;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--ocra);
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: rgba(250,250,247,0.82);
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s, background 0.2s;
+      border-radius: 4px;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--ocra);
+      background: rgba(255,255,255,0.06);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ocra);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--bruno);
+      color: var(--bianco);
+      padding: 5rem 2rem 4.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(200,164,110,0.04) 40px,
+        rgba(200,164,110,0.04) 42px
+      );
+      pointer-events: none;
+    }
+    .hero-kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ocra);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--bianco);
+      margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ocra);
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--ocra);
+      margin: 0 auto;
+      opacity: 0.6;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    /* ===== PAGES ===== */
+    .page { display: none; animation: fadeIn 0.35s ease; }
+    .page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ===== SECTION HEADINGS ===== */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--bruno);
+      margin-bottom: 0.3rem;
+    }
+    .section-rule {
+      width: 50px;
+      height: 3px;
+      background: var(--cuoio);
+      margin-bottom: 1.8rem;
+      border-radius: 2px;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--cuoio);
+      margin: 2rem 0 0.6rem;
+    }
+    p { margin-bottom: 1.1rem; }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--bianco);
+      border: 1px solid rgba(107,76,53,0.18);
+      border-radius: 8px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(61,43,31,0.06);
+    }
+
+    /* ===== QUOTE ===== */
+    blockquote {
+      border-left: 3px solid var(--sigillo);
+      padding: 0.6rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--sigillo);
+      background: rgba(139,58,42,0.05);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ===== BADGE ===== */
+    .badge {
+      display: inline-block;
+      background: var(--muschio);
+      color: var(--bianco);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== IMAGE PLACEHOLDERS ===== */
+    .img-slot {
+      width: 100%;
+      border: 2px dashed var(--ocra);
+      border-radius: 8px;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      color: var(--cuoio);
+      font-style: italic;
+      font-size: 0.9rem;
+      margin: 1.5rem 0;
+      background: rgba(200,164,110,0.06);
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .img-slot:hover { background: rgba(200,164,110,0.12); }
+    .img-slot input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .img-slot img {
+      max-width: 100%;
+      max-height: 380px;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+    }
+    .img-slot-label {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    /* ===== EDITABLE TEXT ===== */
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 3px;
+      transition: background 0.15s;
+    }
+    [contenteditable="true"]:hover {
+      background: rgba(200,164,110,0.08);
+    }
+    [contenteditable="true"]:focus {
+      background: rgba(200,164,110,0.14);
+      box-shadow: 0 0 0 2px var(--ocra);
+    }
+    .edit-hint {
+      font-size: 0.78rem;
+      color: var(--cuoio);
+      opacity: 0.6;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ===== BIOGRAPHY CARDS (list page) ===== */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.5rem;
+    }
+    .bio-card {
+      background: var(--bianco);
+      border: 1px solid rgba(107,76,53,0.18);
+      border-radius: 8px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .bio-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(61,43,31,0.12);
+    }
+    .bio-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--bruno);
+      margin-bottom: 0.4rem;
+    }
+    .bio-card-meta {
+      font-size: 0.82rem;
+      color: var(--grafite);
+      opacity: 0.7;
+      font-style: italic;
+    }
+    .bio-card-add {
+      border: 2px dashed var(--ocra);
+      background: rgba(200,164,110,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 130px;
+      color: var(--cuoio);
+      font-style: italic;
+      font-size: 0.9rem;
+      gap: 0.4rem;
+    }
+    .bio-card-add:hover { background: rgba(200,164,110,0.1); }
+
+    /* ===== DOCUMENTO TABLE ===== */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 640px) { .doc-grid { grid-template-columns: 1fr; } }
+
+    /* ===== GLOSSARY ===== */
+    .glossary-entry {
+      border-bottom: 1px solid rgba(107,76,53,0.12);
+      padding: 0.8rem 0;
+    }
+    .glossary-term {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--cuoio);
+    }
+
+    /* ===== VALUTAZIONE LIST ===== */
+    .val-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .val-list li {
+      padding: 0.7rem 0 0.7rem 2rem;
+      border-bottom: 1px solid rgba(107,76,53,0.1);
+      position: relative;
+    }
+    .val-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--ocra);
+      font-size: 0.7rem;
+      top: 0.9rem;
+    }
+    .val-list li strong { color: var(--cuoio); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--muschio);
+      color: rgba(250,250,247,0.75);
+      text-align: center;
+      padding: 1.6rem 2rem;
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+
+    /* ===== MODAL per nuova biografia ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bianco);
+      border-radius: 10px;
+      padding: 2rem 2.4rem;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal h3 { margin-top: 0; }
+    .modal label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--cuoio);
+      margin-bottom: 0.3rem;
+      margin-top: 1rem;
+    }
+    .modal input, .modal textarea {
+      width: 100%;
+      border: 1px solid rgba(107,76,53,0.3);
+      border-radius: 5px;
+      padding: 0.5rem 0.8rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.95rem;
+      background: var(--carta);
+      color: var(--grafite);
+    }
+    .modal textarea { height: 90px; resize: vertical; }
+    .modal-btns {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: flex-end;
+    }
+    .btn {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem;
+      padding: 0.45rem 1.2rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary { background: var(--cuoio); color: var(--bianco); }
+    .btn-primary:hover { background: var(--bruno); }
+    .btn-ghost { background: transparent; color: var(--grafite); border: 1px solid rgba(107,76,53,0.25); }
+    .btn-ghost:hover { background: rgba(107,76,53,0.07); }
+
+    /* ===== DOCUMENT TABS ===== */
+    .doc-tab-btn {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(107,76,53,0.3);
+      background: transparent;
+      color: var(--grafite);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .doc-tab-btn:hover { background: rgba(107,76,53,0.08); }
+    .doc-tab-btn.active { background: var(--cuoio); color: var(--bianco); border-color: var(--cuoio); }
+
+    /* ===== SCHEDA IDENTIFICATIVA ===== */
+    .scheda-id { border: 1px solid rgba(107,76,53,0.3); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
+    .scheda-header { background: var(--bruno); color: var(--bianco); padding: 0.9rem 1.4rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .scheda-sigla { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 0.08em; color: var(--ocra); }
+    .scheda-data { font-size: 0.85rem; opacity: 0.8; font-style: italic; }
+    .scheda-grid { background: var(--bianco); }
+    .scheda-row { display: flex; border-bottom: 1px solid rgba(107,76,53,0.1); }
+    .scheda-row:last-child { border-bottom: none; }
+    .scheda-label { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: var(--cuoio); font-weight: 600; width: 180px; min-width: 180px; padding: 0.65rem 1.2rem; background: rgba(200,164,110,0.07); border-right: 1px solid rgba(107,76,53,0.1); }
+    .scheda-val { padding: 0.65rem 1.2rem; font-size: 0.9rem; color: var(--grafite); }
+
+    /* ===== TESTO DIPLOMATICO ===== */
+    .testo-details { margin: 2rem 0; }
+    .testo-summary { cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--cuoio); padding: 0.7rem 1rem; background: rgba(200,164,110,0.1); border: 1px solid rgba(107,76,53,0.2); border-radius: 6px; list-style: none; transition: background 0.2s; }
+    .testo-summary:hover { background: rgba(200,164,110,0.18); }
+    .testo-diplomatico { background: var(--bianco); border: 1px solid rgba(107,76,53,0.15); border-top: none; border-radius: 0 0 6px 6px; padding: 2rem 2.2rem; font-size: 0.97rem; line-height: 1.9; }
+    .testo-rubrica { font-family: 'Playfair Display', serif; color: var(--sigillo); font-size: 0.88rem; margin-bottom: 1rem; }
+    .lacuna { color: var(--cuoio); opacity: 0.6; font-style: italic; }
+    .termine-hl { background: rgba(200,164,110,0.3); border-radius: 2px; padding: 0 3px; font-weight: 500; }
+    .testimoni-list { list-style: none; margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--ocra); }
+    .testimoni-list li { padding: 0.3rem 0; font-style: italic; font-size: 0.92rem; }
+    .doc-caption { font-family: 'Playfair Display', serif; color: var(--cuoio); font-size: 0.92rem; margin-bottom: 0.5rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 58px; left: 0; right: 0; background: var(--bruno); padding: 0.5rem 1rem 1rem; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .nav-inner { position: relative; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="navigateTo('home')">A.B.M.C.</div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="navigateTo('home')" data-page="home">Home</a></li>
+      <li><a href="#" onclick="navigateTo('cagnazzi')" data-page="cagnazzi">Cagnazzi</a></li>
+      <li><a href="#" onclick="navigateTo('biografie')" data-page="biografie">Biografie</a></li>
+      <li><a href="#" onclick="navigateTo('documento')" data-page="documento">I Documenti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Progetto Scolastico · A.B.M.C.</div>
+  <h1>Archivio Biblioteca<br>Museo Civico</h1>
+  <div class="hero-sub">Progetto Cagnazzi – Altamura</div>
+  <div class="hero-rule"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- ============================== HOME ============================== -->
+  <div class="page active" id="page-home">
+    <div class="edit-hint">✏️ Clicca su qualsiasi testo per modificarlo. Clicca sul riquadro tratteggiato per aggiungere un'immagine.</div>
+
+    <div class="badge">Presentazione</div>
+    <h2 class="section-title" contenteditable="true">Presentazione dell'A.B.M.C.</h2>
+    <div class="section-rule"></div>
+
+    <p contenteditable="true">L'Archivio Biblioteca Museo Civico (A.B.M.C.) è un'istituzione culturale al servizio del territorio, custode della memoria storica e documentale della comunità altamurana. Attraverso le sue tre anime – archivio, biblioteca e museo – offre a cittadini, studiosi e appassionati un punto di riferimento imprescindibile per la ricerca, la conservazione e la valorizzazione del patrimonio locale.</p>
+
+    <div class="img-slot" id="slot-home-1">
+      <input type="file" accept="image/*" onchange="loadImage(this, 'slot-home-1')">
+      <span class="img-slot-label">🖼</span>
+      Clicca per inserire la fotografia dell'istituzione
+    </div>
+
+    <div class="card">
+      <h3 contenteditable="true">L'importanza della conservazione del patrimonio</h3>
+      <p contenteditable="true">Il patrimonio culturale e documentale di un territorio non è soltanto un insieme di oggetti o carte antiche: è la traccia viva dell'identità di una comunità. L'A.B.M.C. svolge un ruolo fondamentale nel salvaguardare questa memoria, garantendo che le generazioni future possano conoscere, comprendere e tramandare la storia di Altamura.</p>
+      <p contenteditable="true">Conservare significa anche rendere accessibile: ogni documento preservato è una porta aperta sul passato, uno strumento di conoscenza e di crescita collettiva.</p>
+    </div>
+
+    <div class="card">
+      <h3 contenteditable="true">La digitalizzazione e il Codice dell'Amministrazione Digitale (CAD)</h3>
+      <p contenteditable="true">Nell'era contemporanea, la conservazione del patrimonio passa anche attraverso la digitalizzazione. Il Codice dell'Amministrazione Digitale (CAD) stabilisce le norme che regolano la produzione, gestione e conservazione dei documenti informatici nella Pubblica Amministrazione, riconoscendo la centralità del documento digitale come strumento autentico e durevole.</p>
+      <p contenteditable="true">La digitalizzazione non sostituisce l'originale, ma lo moltiplica: rende i documenti consultabili a distanza, li protegge dal deterioramento fisico e apre nuovi scenari di ricerca e valorizzazione.</p>
+    </div>
+
+    <div class="card" style="background: var(--muschio); color: var(--bianco); border-color: transparent;">
+      <p style="margin:0; font-style:italic; text-align:center;" contenteditable="true">«Il sito web raccoglie il lavoro svolto dagli studenti presso l'Archivio Biblioteca Museo Civico di Altamura, nell'ambito del Progetto Cagnazzi.»</p>
+    </div>
+  </div>
+
+  <!-- ============================== CAGNAZZI ============================== -->
+  <div class="page" id="page-cagnazzi">
+    <div class="edit-hint">✏️ Clicca su qualsiasi testo per modificarlo. Clicca sul riquadro tratteggiato per aggiungere un'immagine.</div>
+
+    <div class="badge">Biografia</div>
+    <h2 class="section-title" contenteditable="true">Luca de Samuele Cagnazzi</h2>
+    <div class="section-rule"></div>
+
+    <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+      <div style="flex:1; min-width:220px;">
+        <div class="img-slot" id="slot-cagnazzi-1">
+          <input type="file" accept="image/*" onchange="loadImage(this, 'slot-cagnazzi-1')">
+          <span class="img-slot-label">🖼</span>
+          Ritratto di Cagnazzi
+        </div>
+      </div>
+      <div style="flex:2; min-width:280px;">
+        <p contenteditable="true">Luca de Samuele Cagnazzi (Altamura, 1764 – Napoli, 1852) è stato uno dei più illustri intellettuali del Mezzogiorno d'Italia tra il XVIII e il XIX secolo. Economista, matematico, fisico e umanista, Cagnazzi incarnò l'ideale illuminista dell'uomo di sapere impegnato nel miglioramento della società.</p>
+        <p contenteditable="true">Professore universitario, autore di opere fondamentali di economia politica e statistica, Cagnazzi fu anche un attento osservatore della realtà del suo tempo, contribuendo in modo significativo al dibattito culturale e scientifico del Regno di Napoli.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 contenteditable="true">Il Registro del 1839</h3>
+      <p contenteditable="true">Tra i documenti conservati presso l'A.B.M.C. si trova un prezioso registro risalente al 1839, direttamente riconducibile all'attività di Luca de Samuele Cagnazzi. Questo documento rappresenta una testimonianza diretta della vita amministrativa, sociale e culturale dell'epoca, offrendo uno spaccato autentico della realtà altamurana nell'Ottocento.</p>
+      <p contenteditable="true">Il registro è stato oggetto del lavoro di trascrizione e analisi svolto dagli studenti durante il percorso presso l'A.B.M.C., diventando così il filo conduttore dell'intero progetto.</p>
+      <blockquote contenteditable="true">«Il presente documento attesta la condizione civile e la professione del soggetto nell'anno corrente…»</blockquote>
+    </div>
+
+    <div class="img-slot" id="slot-cagnazzi-2">
+      <input type="file" accept="image/*" onchange="loadImage(this, 'slot-cagnazzi-2')">
+      <span class="img-slot-label">🖼</span>
+      Immagine del Registro del 1839
+    </div>
+
+    <!-- Sezione aggiuntiva libera -->
+    <div class="card">
+      <h3 contenteditable="true">Approfondimenti</h3>
+      <p contenteditable="true">Clicca qui per aggiungere ulteriori informazioni su Cagnazzi, le sue opere o la sua importanza storica.</p>
+    </div>
+  </div>
+
+  <!-- ============================== BIOGRAFIE ============================== -->
+  <div class="page" id="page-biografie">
+    <div class="edit-hint">✏️ Clicca sui testi per modificarli. Aggiungi nuove biografie con il pulsante.</div>
+
+    <div class="badge">Dal Registro del 1839</div>
+    <h2 class="section-title">Biografie Individuali</h2>
+    <div class="section-rule"></div>
+
+    <p>Questa sezione è dedicata alle biografie dei personaggi storici estratti dal Registro del 1839. Ogni studente ha approfondito la figura assegnata, realizzando una scheda individuale che comprende la fotografia della pagina originale, la trascrizione integrale e un commento storico-contestuale.</p>
+
+    <div class="bio-grid" id="bioGrid">
+      <!-- Le schede biografiche vengono generate da JS -->
+      <div class="bio-card bio-card-add" onclick="openModal()">
+        <span style="font-size:2rem; opacity:0.5;">＋</span>
+        <span>Aggiungi una biografia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== BIO DETAIL (hidden initially) ============================== -->
+  <div class="page" id="page-bio-detail">
+    <button onclick="navigateTo('biografie')" style="background:none;border:none;color:var(--cuoio);cursor:pointer;font-family:inherit;font-size:0.9rem;margin-bottom:1.5rem;padding:0;display:flex;align-items:center;gap:0.3rem;">
+      ← Torna alle biografie
+    </button>
+
+    <div class="badge" id="detail-badge">Biografia</div>
+    <h2 class="section-title" id="detail-name" contenteditable="true">Nome del personaggio</h2>
+    <div class="section-rule"></div>
+
+    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:2rem;">
+      <div style="flex:1; min-width:220px;">
+        <div class="img-slot" id="slot-detail-originale">
+          <input type="file" accept="image/*" onchange="loadImage(this, 'slot-detail-originale')">
+          <span class="img-slot-label">🖼</span>
+          Fotografia pagina originale del Registro
+        </div>
+      </div>
+      <div style="flex:2; min-width:280px;">
+        <h3 contenteditable="true">Trascrizione dal Registro</h3>
+        <blockquote contenteditable="true">Incolla qui la trascrizione integrale del testo dal Registro del 1839…</blockquote>
+        <h3 contenteditable="true">Commento storico-contestuale</h3>
+        <p contenteditable="true">Scrivi qui il commento sul personaggio e sul suo ruolo nella comunità altamurana dell'epoca…</p>
+      </div>
+    </div>
+
+    <div class="img-slot" id="slot-detail-extra">
+      <input type="file" accept="image/*" onchange="loadImage(this, 'slot-detail-extra')">
+      <span class="img-slot-label">🖼</span>
+      Immagine aggiuntiva (facoltativa)
+    </div>
+  </div>
+
+  <!-- ============================== I DOCUMENTI ============================== -->
+  <div class="page" id="page-documento">
+
+    <div class="badge">Archivistica & Paleografia</div>
+    <h2 class="section-title">I Documenti Trascritti</h2>
+    <div class="section-rule"></div>
+
+    <p style="margin-bottom:2rem;">Il lavoro svolto presso l'A.B.M.C. ha permesso di avvicinarsi concretamente alle tecniche dell'archivistica e della paleografia. Qui di seguito sono raccolte le trascrizioni integrali dei documenti analizzati, corredate di scheda identificativa, riassunto storico e glossario dei termini tecnici.</p>
+
+    <!-- Sommario documenti -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem;">
+      <button class="doc-tab-btn active" onclick="showDoc(0, this)">TRASC_016 · 1547</button>
+      <button class="doc-tab-btn" onclick="showDoc(1, this)">Trascrizione 1535 · Trani</button>
+      <button class="doc-tab-btn" onclick="showDoc(2, this)">Trascrizione 1492 · Napoli</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         DOCUMENTO 1 · TRASC_016 – Protesta Università d'Altamura 1547
+    ════════════════════════════════════════════════════════════════ -->
+    <div class="doc-section" id="doc-0">
+
+      <!-- Scheda identificativa stile PetrarcaOnline -->
+      <div class="scheda-id">
+        <div class="scheda-header">
+          <span class="scheda-sigla">ABMC_TRASC_016</span>
+          <span class="scheda-data">17 Marzo 1547</span>
+        </div>
+        <div class="scheda-grid">
+          <div class="scheda-row"><span class="scheda-label">Soggetto scrivente</span><span class="scheda-val">Università d'Altamura</span></div>
+          <div class="scheda-row"><span class="scheda-label">Luogo</span><span class="scheda-val">Garagnone (Gravina)</span></div>
+          <div class="scheda-row"><span class="scheda-label">Lingua</span><span class="scheda-val">Volgare / Latino</span></div>
+          <div class="scheda-row"><span class="scheda-label">Tipologia</span><span class="scheda-val">Atto notarile – Protesta ufficiale</span></div>
+          <div class="scheda-row"><span class="scheda-label">Parole chiave</span><span class="scheda-val">Protesta · Restituzione · Animali · Castellano · Garagnone</span></div>
+          <div class="scheda-row"><span class="scheda-label">Operatori (studenti)</span><span class="scheda-val">Papangelo Chiara · Edoardo Stano · Tubito Alessandro</span></div>
+        </div>
+      </div>
+
+      <!-- Foto originale -->
+      <div style="display:flex; gap:2rem; flex-wrap:wrap; margin:2rem 0;">
+        <div style="flex:1; min-width:220px;">
+          <p class="doc-caption">📷 Pagina originale del documento</p>
+          <div class="img-slot" id="slot-trasc016-foto">
+            <input type="file" accept="image/*" onchange="loadImage(this,'slot-trasc016-foto')">
+            <span class="img-slot-label">🖼</span>
+            Carica la fotografia del documento originale
+          </div>
+        </div>
+        <div style="flex:2; min-width:280px;">
+          <p class="doc-caption">📝 Riassunto storico</p>
+          <div class="card" style="margin:0;">
+            <p>Il 17 Marzo del 1547, sotto il regno di Carlo V, l'Università di Altamura presentò una protesta ufficiale contro il Castellano del Garagnone per la restituzione di animali e altri beni che erano stati sequestrati.</p>
+            <p>Davanti al giudice Cecco Lupi di Gravina, al notaio Leonardo De Minino e ai testimoni presenti, il notaio Angelo De Minino, in qualità di procuratore dell'Università di Altamura e delle persone nominate nella regia provvisione, notificò e lesse il mandato del Sacro Regio Consiglio.</p>
+            <p>Con grande insistenza chiese a Domenico Folleto e ai suoi compagni di restituire gli animali e le altre cose confiscate nel territorio del Garagnone, secondo quanto ordinato dal mandato regio e sotto pena prevista. Domenico Folleto e i suoi compagni risposero che si trovavano nel castello del Garagnone, allora da loro abitato, e che non potevano consultare né un giurista né il governatore generale dello Stato del marchese di Campagna: Giovanni Spinola. Chiesero quindi una copia dell'atto e un termine adeguato per potersi consultare e deliberare.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testo diplomatico -->
+      <details class="testo-details" open>
+        <summary class="testo-summary">✍️ Trascrizione diplomatica integrale</summary>
+        <div class="testo-diplomatico">
+          <p class="testo-rubrica">Anno 1547 Marzo 17 — <em>Protesta Dell'università D'Altamura contro il Castellano del Garagnone, per la restituzious di animali ed altro intercetti.</em></p>
+          <p>An. 1547, Marzo 17, imperando Carlo V.</p>
+          <p>«Protesta contra il Castellano del Garagnone per la restitutione dell'animali»</p>
+          <p>In Garagnone, davanti al giudice Cecco Lupi Da Gravina, ed al notaro Leonardo De Minino, presenti i testimoni sottoscritti &lt;&lt;Constituto lo egreggio notharo Angelo De Magionis De Altamura procuratore tanto de la magnifica Università dela cità Di Altamura quanto ancora procuratore de tutti persone et homini nominati in la sopradetta regia provisione et mandato ad noi giudice notario et testimoni, noto, letto et perletto, et requedendo con grande instantia <span class="lacuna">[…]</span> Preditto messer Dominico Folleto et compagni astanti, presenti et accidienti la ditta provisione et mandato de sacro, regio Conisilio dove ne si ordina, soputo formidabile pena, vogliate restituire alli detti in supradetto mandato nominati personi li animali et <span class="termine-hl">robbe</span> intercepte et pigniorate per <span class="termine-hl">voiet</span> compagni nél loro nominato del Garagnone, secondo in ditto mandato regio de contiene, altramente facendosi, se <span class="termine-hl">protestain</span> questo modo et in ogni altro modo megliore de ragione permesso&gt;&gt; <span class="lacuna">Etc.</span></p>
+          <p>Dopo di che il nominato sig. Domenico Folleto e suoi compagni dichiararono &lt;&lt;che adesso essi si trovano nel detto Castello Del Garagnone loro inhabitato, dove ne'potria, ne'pote per le cose sopradiete consultarsi da iuris perito et altra persona savia, ne' tampoco con il signor Ioanne Spinola gubernatore generale del Stato del illustrissimo sig. marchese De Campagna, et pero' <span class="lacuna">[…]</span> la copia de la detta regia revisione de la requisitione sopraditta dal presente suo atto con termino competente che possi consultarsi et deliberare con il detto signor Gubernatore et iuris perito, et accusi adomanda ion ogni meglior modo, presente ditto notario Angelo procuratore <span class="lacuna">etc</span> faestium est exinde de premissis annibus presens hoc puplieum primum instrumentum per manus mei pedicti notari <span class="lacuna">etc.</span> Ego idem Leonardo De Minimo puplieus ut supra notarius <span class="lacuna">etc.</span> <strong>loco rigoni</strong></p>
+          <ul class="testimoni-list">
+            <li>Ego Ciccutus Lupus de <span class="lacuna">[…]</span> Gravine qui supra regius Iuter mani propria</li>
+            <li>Augelus Anfonii De Crocho lestatur</li>
+            <li>Ego Dominus Mateus De Nirielle – pro leste interfui</li>
+            <li>Ego Dominus Donsiello De Pipillo de Matera <strong>lattes</strong></li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Glossario -->
+      <div class="card" style="margin-top:2rem;">
+        <h3 style="margin-top:0;">📖 Termini giuridici e desueti</h3>
+        <div class="glossary-entry"><span class="glossary-term">Egreggio</span> – Titolo onorifico medievale equivalente a "illustre", conferito a notai e professionisti di rango.</div>
+        <div class="glossary-entry"><span class="glossary-term">Giudice</span> – Magistrato locale con funzione di testimone ufficiale negli atti notarili, non necessariamente giudicante.</div>
+        <div class="glossary-entry"><span class="glossary-term">Gubernatore</span> – Rappresentante del signore feudale con poteri amministrativi e militari sul territorio.</div>
+        <div class="glossary-entry"><span class="glossary-term">Illustrissimo</span> – Titolo di cortesia riservato ai nobili di alto rango.</div>
+        <div class="glossary-entry"><span class="glossary-term">Instantia</span> – (lat.) Richiesta formale, insistenza legale.</div>
+        <div class="glossary-entry"><span class="glossary-term">Iuris perito</span> – (lat.) Esperto di diritto, giurista.</div>
+        <div class="glossary-entry"><span class="glossary-term">Notharo / Notaro</span> – Notaio; pubblico ufficiale abilitato a redigere e autenticare atti.</div>
+        <div class="glossary-entry"><span class="glossary-term">Pena</span> – Sanzione prevista dal mandato regio in caso di inadempienza.</div>
+        <div class="glossary-entry"><span class="glossary-term">Persona savia</span> – Persona esperta e autorevole, consulente fiduciario.</div>
+        <div class="glossary-entry"><span class="glossary-term">Procuratore</span> – Soggetto che agisce in nome e per conto di un'altra persona o ente.</div>
+        <div class="glossary-entry"><span class="glossary-term">Protestain / Protestare</span> – Dichiarare solennemente per atti pubblici una propria pretesa o opposizione.</div>
+        <div class="glossary-entry"><span class="glossary-term">Regio Consilio</span> – Sacro Regio Consiglio, supremo tribunale del regno.</div>
+        <div class="glossary-entry"><span class="glossary-term">Requisitione</span> – Atto formale di richiesta/rivendicazione di beni.</div>
+        <div class="glossary-entry"><span class="glossary-term">Robbe</span> – (volgare) Beni mobili, oggetti, cose sequestrate.</div>
+        <div class="glossary-entry"><span class="glossary-term">Voiet</span> – "Voi et" (volgare meridionale) = "voi ed i vostri".</div>
+      </div>
+    </div><!-- /doc-0 -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         DOCUMENTO 2 · Trascrizione Trani 1535
+    ════════════════════════════════════════════════════════════════ -->
+    <div class="doc-section" id="doc-1" style="display:none;">
+
+      <div class="scheda-id">
+        <div class="scheda-header">
+          <span class="scheda-sigla">ABMC · TRANI 1535</span>
+          <span class="scheda-data">Anno 1535 (con atti dal 1413 al 1493)</span>
+        </div>
+        <div class="scheda-grid">
+          <div class="scheda-row"><span class="scheda-label">Luogo di redazione</span><span class="scheda-val">Trani</span></div>
+          <div class="scheda-row"><span class="scheda-label">Lingua</span><span class="scheda-val">Latino / Volgare meridionale</span></div>
+          <div class="scheda-row"><span class="scheda-label">Tipologia</span><span class="scheda-val">Transunto notarile – Raccolta di privilegi regi</span></div>
+          <div class="scheda-row"><span class="scheda-label">Notaio</span><span class="scheda-val">Gio. Battista (su privilegio di Ferdinando I d'Aragona, 1493)</span></div>
+          <div class="scheda-row"><span class="scheda-label">Documenti inclusi</span><span class="scheda-val">Privilegio Ferdinando I (1493) · Mandato re Ladislavo (1413) · Testamento Goffredo Mascaroni (1418–1419)</span></div>
+          <div class="scheda-row"><span class="scheda-label">Parole chiave</span><span class="scheda-val">Guaragnone · Feudo · Testamento · Possesso · Altamura</span></div>
+        </div>
+      </div>
+
+      <div style="margin:2rem 0;">
+        <p class="doc-caption">📝 Riassunto storico</p>
+        <div class="card">
+          <p>Il documento del 1535, redatto a Trani sotto l'imperatore Carlo V, è un transunto notarile che raccoglie e trascrive una serie di atti regi antecedenti, prodotti a tutela degli interessi della comunità di Altamura.</p>
+          <p>Il nucleo documentario comprende il <strong>privilegio di Ferdinando I d'Aragona (1493)</strong> con cui si nomina notaio del regno Giovanni Battista, il <strong>mandato di re Ladislavo (17 agosto 1413)</strong> con cui il castellano Antonio de Maffia consegnava il castello di Guaragnone a Battista Tancredi, procuratore di Goffredo Mascaroni, ciambellano del re, e il <strong>testamento di Goffredo Mascaroni (9 ottobre 1418)</strong>, rogato a Trani, con cui il nobile istituisce erede il figlio primogenito Augolino nel castello e territorio di Guaragnone, con obbligo del servizio feudale.</p>
+          <p>Il documento riporta anche i confini del territorio di Guaragnone, descritti in volgare, con indicazioni verso Gravina, Ruvo, Corato, Minervino e Spinazzola.</p>
+        </div>
+      </div>
+
+      <details class="testo-details" open>
+        <summary class="testo-summary">✍️ Trascrizione diplomatica integrale</summary>
+        <div class="testo-diplomatico">
+          <p class="testo-rubrica">1493 luglio 31, Napoli — <em>Ferdinando I d'Aragona nomina notaio del regno di Sicilia Giovanni Battista di Trani, dopo esame e valutazione sufficiente del medesimo.</em></p>
+          <p class="testo-rubrica" style="margin-top:1.5rem;">Doc. 1535, Trani — <em>A richiesta della comunità altamurana vengono trascritti alcuni documenti regi, fra cui il privilegio di Ferdinando I d'Aragona (1493), il mandato di re Ladislavo in favore di Mascaroni (1413) e il testamento di Goffredo Mascaroni (1418).</em></p>
+          <p>L'anno 1535, imperatore Carlo V, re dei Baroniani ecc. Virimus D'Agostini "de severione" da Bari, notarius in Trani, d'un istrumento a lui presentato, e da cui apparisce, che in veste d'un regio mandato del re Ladislao d'Ungeria, delle due Sicilie, sotto la data 17 agosto 1413, letto dinanzi al giudice e notaro, il castellano della rocca di Guaragnoni Antonio "de maffia, de Lisocta" nel giorno 19 dello stesso mese ed anno, aveva consegnato quel castello con tutte le sue munizioni, mobili, approvvigionamenti, al dottore dell'uno e l'altro diritto Battista Tancredi, processatore del nobile <span class="termine-hl">Goffredo Mascaroni</span> da Napoli, detto "follo", ciambellano del medesimo re Ladislao.</p>
+          <p>Similmente in vigore d'altro regio mandato del 17 luglio stesso anno, il medesimo nobile Goffredo prese possesso di essa rocca con tutto ciò che vi era dentro, nonché di certi beni posti in quel di Castellammare di Stabia, voc. "case sacre".</p>
+          <p>Inoltre si riproduce, a istanza della comunità e città d'Altamura, il testamento del fu Goffredo nominato in atti leucio "de urso" dell'anno 1418, ottobre 9:</p>
+          <blockquote style="font-style:italic; border-left:3px solid var(--sigillo); padding:0.6rem 1.2rem; margin:1rem 0; color:var(--sigillo); background:rgba(139,58,42,0.05);">
+            «<em>heredem insituit augolinum eius filium primogenitum in castro sen fortalicio guaragnoni; territorio et districta ipsius terre toto, rasaliae, iuribus et aetionibus ipsuis eum onere tamen feudalis servicii</em>»<br>
+            <span style="font-size:0.85rem; opacity:0.7;">(Istituisce erede il figlio primogenito Augolino nel castello e territorio di Guaragnone, con tutti i diritti, ma con l'obbligo del servizio feudale.)</span>
+          </blockquote>
+          <p class="testo-rubrica" style="margin-top:1.5rem;">Confini del territorio di Guaragnone (in volgare):</p>
+          <ul class="testimoni-list">
+            <li>In verso Gravina: da "Lorenzo della Cipria" fino al confine di "cataldo" e al monte "Falminfello".</li>
+            <li>In verso Ruvo e Corato: dall'angolo de "trincata" fino al monte della "calga".</li>
+            <li>In verso Minervino e Spinazzola: la fama di Sant'Angelo e Santo Benedetto al "grocta selagno" e il monte davanti.</li>
+          </ul>
+          <p style="margin-top:1.5rem;">Il privilegio di Ferdinando I d'Aragona (31 luglio 1493) conferisce a <span class="termine-hl">Giovanni Battista</span> di Trani l'incarico di notaio pubblico per tutto il regno di Sicilia, dopo esame sostenuto presso la Curia regia, con obbligo di giuramento e di rispettare le costituzioni del regno circa la presenza di testimoni negli atti.</p>
+          <p class="testo-rubrica" style="margin-top:1.5rem;">Testimoni e sottoscrizioni:</p>
+          <ul class="testimoni-list">
+            <li>Ego Franciscus Porigolus de brano, regius ad vitam ad contractus, iudex</li>
+            <li>Ego Dominus Vincentrus de Romanedis de Trano, pro teste</li>
+            <li>Ego Iacobo de Trani, sor testimonio</li>
+            <li>Ego Dominus Hieronymus factus Irano, testis sum</li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="card" style="margin-top:2rem;">
+        <h3 style="margin-top:0;">📖 Glossario dei termini tecnici</h3>
+        <div class="glossary-entry"><span class="glossary-term">Transunto</span> – Copia autentica di un documento originale, redatta da un notaio pubblico.</div>
+        <div class="glossary-entry"><span class="glossary-term">Ciambellano</span> – Alto ufficiale di corte, con funzioni cerimoniali e di fiducia personale del sovrano.</div>
+        <div class="glossary-entry"><span class="glossary-term">Feudalis servicii</span> – (lat.) Obbligo di servizio militare e amministrativo dovuto al signore feudale in cambio del feudo.</div>
+        <div class="glossary-entry"><span class="glossary-term">Fortalicium / Fortalizio</span> – Fortezza, castello munito di difese militari.</div>
+        <div class="glossary-entry"><span class="glossary-term">Iuris utriusque doctor</span> – Dottore in entrambi i diritti (civile e canonico).</div>
+        <div class="glossary-entry"><span class="glossary-term">Processatore</span> – Procuratore, soggetto che agisce legalmente per conto di un altro.</div>
+        <div class="glossary-entry"><span class="glossary-term">Rasalia</span> – Diritti di pascolo e utilizzo del territorio.</div>
+        <div class="glossary-entry"><span class="glossary-term">Transumpti instrumentum</span> – (lat.) Atto di trascrizione autentica (il transunto medesimo).</div>
+        <div class="glossary-entry"><span class="glossary-term">Universitas</span> – Comunità cittadina organizzata, con rappresentanza giuridica propria.</div>
+      </div>
+    </div><!-- /doc-1 -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         DOCUMENTO 3 · Trascrizione Napoli 1492
+    ════════════════════════════════════════════════════════════════ -->
+    <div class="doc-section" id="doc-2" style="display:none;">
+
+      <div class="scheda-id">
+        <div class="scheda-header">
+          <span class="scheda-sigla">ABMC · NAPOLI 1492</span>
+          <span class="scheda-data">Ottobre–Novembre 1492</span>
+        </div>
+        <div class="scheda-grid">
+          <div class="scheda-row"><span class="scheda-label">Luogo di redazione</span><span class="scheda-val">Castello Nuovo, Napoli</span></div>
+          <div class="scheda-row"><span class="scheda-label">Lingua</span><span class="scheda-val">Latino / Volgare meridionale</span></div>
+          <div class="scheda-row"><span class="scheda-label">Tipologia</span><span class="scheda-val">Lettere regie – Mandato di restituzione di pegni</span></div>
+          <div class="scheda-row"><span class="scheda-label">Sovrano</span><span class="scheda-val">Ferdinando I d'Aragona / Regina Giovanna</span></div>
+          <div class="scheda-row"><span class="scheda-label">Destinatario</span><span class="scheda-val">Gaspare di Santo Felino, percettore regio</span></div>
+          <div class="scheda-row"><span class="scheda-label">Parole chiave</span><span class="scheda-val">Altamura · Castellaneta · Privilegi · Pascolo · Restituzione pegni · Immunità</span></div>
+        </div>
+      </div>
+
+      <div style="margin:2rem 0;">
+        <p class="doc-caption">📝 Riassunto storico</p>
+        <div class="card">
+          <p>Il documento è composto da due lettere regie del 1492, entrambe relative al contenzioso tra la comunità di Altamura e quella di Castellaneta riguardo al diritto di pascolo e alla restituzione dei pegni (animali e beni) indebitamente confiscati.</p>
+          <p>La <strong>prima lettera (26 ottobre 1492)</strong>, emanata a nome della regina, ordina al percettore regio Gaspare di Santo Felino di far restituire agli uomini di Altamura gli animali e i beni sequestrati in passato dagli ufficiali di Castellaneta, e di garantire loro il rispetto del privilegio di immunità e del diritto di pascolo nel territorio, secondo quanto già stabilito in precedenti lettere regie.</p>
+          <p>La <strong>seconda lettera (20 novembre 1492)</strong>, inviata in risposta a una supplica del principe di Altamura, ribadisce l'obbligo di osservare il privilegio di immunità della città, con la limitazione – già stabilita dal principe – che il bestiame di Altamura potesse pascolare nel territorio di Castellaneta per un valore annuo non superiore a dodici ducati di affida. Si ordina la restituzione di tutti i pegni presi in passato e si comminano pene pecuniarie per i trasgressori (mille ducati).</p>
+        </div>
+      </div>
+
+      <details class="testo-details" open>
+        <summary class="testo-summary">✍️ Trascrizione diplomatica integrale</summary>
+        <div class="testo-diplomatico">
+          <p class="testo-rubrica">In nomine domini nostri Ihesus Christi. Amen. — <em>Anno 1492, sotto Ferdinando d'Aragona re di Gerusalemme, Ungheria e Sicilia, anno venticinquesimo del suo regno.</em></p>
+          <p>Movendis di vero decimo eiusdem decime dictionis Castellanete, nos notarius Robertus Blancus de civitate Castellanete <span class="lacuna">[…]</span> nico laos de imperio de dicta civitate Castellanete publicus <span class="lacuna">[…]</span> subiet per alti cabelati dela cita nostra de Castellaneta non sanno stati restituiti li pigni tolti per loro in li tempi passati alli homini de Altamura, nascalli de dicto illustrissimo principe et li depositi per ipsi facti per causa che intendevano de loro esciere la piacza.</p>
+          <p>Lo passo fida et diffida de lo bestiame, li che dicti de Altamura pasculavano in lo territorio de dicta nostra cita per vigore de li joni privilegi secondo e sotto nostra magesta animad et secondo la continentia de le nostre lictere.</p>
+          <p>Supplicandodonce ne dignassimo ordinare li fossero restituiti dicti pigni et statute dicte impuniate juxta la continentia de litere sopra di esso ad sua instantia de nostra maesta alias emanate.</p>
+          <p>Et essuante esse intendendo muiche quello che una volta è stato scripto supra questo de instantia dicto illustrissimo principe che sia aleservato alli dicti homini de Altamura per questo dicemo et ordinamo espressamente che <strong>debiate fare restituire alli homini predicti de Altamura animale pigni alloro tolto et deposito per ipsi facto per la causa predicta</strong> et da mo avanti voleno che li dicti de Altamura siano aleservati lo privilegio de civiltà a quella università concesso per la mayesta del carissimo lignaro nostro signore cum quella limitatione per hui facta circa lo pasculare in quello modo et forma che in li altri nostri litteri che sopra cio che habiamo altre volte scripto se contiene.</p>
+          <p>Non facendo lo contrario per quanto havete la nostra razia cara et como tale sta nostra voluntà, la presente lecta observata per viej lecta restituite al presentante.</p>
+          <p><em>Data Castellonova Neapolis, vicesimo sexto octobris, millesimo quadringentesimo nonagesimo secundo.</em></p>
+          <p>Per la reyna Laurentius Augustinus Alexandres suveremius granus a lego vero magnifico viro Gaspari de Sancto Zelin perceptoris nostro presenti et aliis futuris nostris dilectis.</p>
+          <hr style="border:none;border-top:1px solid rgba(107,76,53,0.2);margin:1.5rem 0;">
+          <p class="testo-rubrica">Seconda lettera regia — <em>Regina Sicilie etc. — 20 novembre 1492</em></p>
+          <p>Regina Sicilie etcetera capitando lo illustrissimo infante principe de Altamura nostro figlio carissimo ne ga facto intendere como la università de la cita sua de Altamura tenne privilegio de immunità e franchise da la mayestade lo serenissimo signore re nostro signore confirmata da diversa provisione de sua maestade che tutti li cita siano franchi et immuni <span class="lacuna">[…]</span> in quella manera che sono tractati li cittadini de tutte le citate terre et lochi del regno.</p>
+          <p>Privilegio de cantina et sotto observato conio de presente se quille provinte de terre de Bari et de terra de Francavilla et che novemente dicta università li ia fatto querel comme per li lagliva et altri officiali de Castellaneta sono stati molestati et depignati alcuni cittadini de dicta cita per tenendo volendo si lo de li posse et da dicti cittadini et per lo passato li è stato observato in tutte le altre citate de lo regno.</p>
+          <p>Et per questo de voluntà de T.to principe per mostra maesta ordinato et limitato che solamente de li bestiamo de Altamura ciascuno anno potesse pascolare in lo territorio predicto solo tanto quanto montasse la <span class="termine-hl">affidita de ducati dudici</span> havendo respecto alli altri affidati secondo appare in una litera sopra cio expeditia per lo dicto illustrissimo principe.</p>
+          <p>Pertanto per la presente ne dicimo et comandamo che alla università et homini predicti de terra de Altamura dobbiate fare ad unquem observare lo tenor de lo prefato privilegio et al quanto al pascolare fariti observare secondo la limitatione et observatione de nostra maestà de li dicti <span class="termine-hl">dudici ducati</span>. Farite restituire tutti pigni tolti per lo passato come da presente et isorio fariti lo contrario si havite cara la gratia nostra et la pena de <span class="termine-hl">ducati mille</span> desiderati evitare la presente.</p>
+          <p><em>Data in Castello Novo Neapolis, vicesimo novembre millesimo quadringentesimo nonagesimo secundo.</em></p>
+        </div>
+      </details>
+
+      <div class="card" style="margin-top:2rem;">
+        <h3 style="margin-top:0;">📖 Glossario dei termini tecnici</h3>
+        <div class="glossary-entry"><span class="glossary-term">Affida / Affidita</span> – Tassa o canone corrisposto per il diritto di pascolo su terreni altrui; nel documento fissata a dodici ducati annui.</div>
+        <div class="glossary-entry"><span class="glossary-term">Depignati</span> – Soggetti a pignoramento, sequestro di beni.</div>
+        <div class="glossary-entry"><span class="glossary-term">Diffida</span> – Atto ufficiale con cui si vieta o si revoca un diritto (qui il permesso di pascolo).</div>
+        <div class="glossary-entry"><span class="glossary-term">Ducato</span> – Moneta d'oro del Regno di Napoli, unità di conto principale nel XV secolo.</div>
+        <div class="glossary-entry"><span class="glossary-term">Fida</span> – Diritto di pascolo concesso a pagamento su un determinato territorio.</div>
+        <div class="glossary-entry"><span class="glossary-term">Immunità / Franchigia</span> – Esenzione fiscale o giurisdizionale concessa a una città tramite privilegio regio.</div>
+        <div class="glossary-entry"><span class="glossary-term">Pegni</span> – Beni mobili (animali, oggetti) sequestrati a garanzia di un debito o come punizione.</div>
+        <div class="glossary-entry"><span class="glossary-term">Percettore</span> – Funzionario regio incaricato della riscossione delle imposte e dell'esecuzione dei mandati finanziari.</div>
+        <div class="glossary-entry"><span class="glossary-term">Privilegio di civiltà</span> – Insieme di diritti e franchigie concessi dalla Corona agli abitanti di una città.</div>
+        <div class="glossary-entry"><span class="glossary-term">Sindaco</span> – (qui) Rappresentante legale della comunità cittadina, non il sindaco nel senso moderno.</div>
+        <div class="glossary-entry"><span class="glossary-term">Universitas</span> – La comunità organizzata dei cittadini, con personalità giuridica propria, interlocutrice della corona.</div>
+      </div>
+    </div><!-- /doc-2 -->
+
+    <!-- Nota sulla valutazione -->
+    <details style="margin-top:3rem;">
+      <summary style="cursor:pointer; font-family:'Playfair Display',serif; color:var(--cuoio); font-size:1rem; padding:0.5rem 0;">Nota sulla valutazione</summary>
+      <div class="card" style="margin-top:1rem;">
+        <p>Il sito web di progetto verrà valutato secondo i seguenti criteri:</p>
+        <ul class="val-list">
+          <li><strong>Rispetto delle istruzioni</strong> – presenza e completezza di tutte le sezioni richieste.</li>
+          <li><strong>Quantità dei contenuti</strong> – ricchezza e approfondimento delle informazioni presentate.</li>
+          <li><strong>Capacità di rielaborazione grafica</strong> – uso creativo e coerente di immagini, layout e elementi visivi.</li>
+          <li><strong>Cura estetica e ordine del sito</strong> – leggibilità, pulizia grafica e coerenza stilistica.</li>
+        </ul>
+        <p style="margin-top:1rem; font-style:italic; color:var(--cuoio);">Buon lavoro a tutte le studentesse e a tutti gli studenti!</p>
+      </div>
+    </details>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  Archivio Biblioteca Museo Civico · Altamura · Progetto Didattico Cagnazzi
+</footer>
+
+<!-- MODALE: Nuova Biografia -->
+<div class="modal-overlay" id="bioModal">
+  <div class="modal">
+    <h3>Aggiungi una biografia</h3>
+    <label>Nome del personaggio *</label>
+    <input type="text" id="bio-input-name" placeholder="Es. Francesco Saverio Dentice">
+    <label>Professione / Ruolo</label>
+    <input type="text" id="bio-input-role" placeholder="Es. Notaio, Commerciante…">
+    <label>Note brevi (facoltativo)</label>
+    <textarea id="bio-input-note" placeholder="Breve descrizione o anno di nascita…"></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal()">Annulla</button>
+      <button class="btn btn-primary" onclick="addBio()">Aggiungi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== NAVIGATION =====
+  const pages = ['home','cagnazzi','biografie','bio-detail','documento'];
+
+  function navigateTo(pageId) {
+    pages.forEach(p => {
+      document.getElementById('page-' + p)?.classList.remove('active');
+    });
+    document.getElementById('page-' + pageId)?.classList.add('active');
+
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === pageId);
+    });
+
+    // Close mobile menu
+    document.getElementById('navLinks').classList.remove('open');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ===== IMAGE UPLOAD =====
+  function loadImage(input, slotId) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const slot = document.getElementById(slotId);
+      slot.innerHTML = `<img src="${e.target.result}" alt="Immagine caricata">
+        <div style="margin-top:0.5rem;font-size:0.75rem;opacity:0.6;font-style:italic;">Clicca sull'immagine per cambiarla</div>
+        <input type="file" accept="image/*" onchange="loadImage(this, '${slotId}')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ===== BIOGRAFIE =====
+  let biografie = [];
+
+  function openModal() {
+    document.getElementById('bio-input-name').value = '';
+    document.getElementById('bio-input-role').value = '';
+    document.getElementById('bio-input-note').value = '';
+    document.getElementById('bioModal').classList.add('open');
+    document.getElementById('bio-input-name').focus();
+  }
+
+  function closeModal() {
+    document.getElementById('bioModal').classList.remove('open');
+  }
+
+  function addBio() {
+    const name = document.getElementById('bio-input-name').value.trim();
+    if (!name) { document.getElementById('bio-input-name').focus(); return; }
+    const role = document.getElementById('bio-input-role').value.trim();
+    const note = document.getElementById('bio-input-note').value.trim();
+    biografie.push({ name, role, note });
+    renderBioGrid();
+    closeModal();
+  }
+
+  function renderBioGrid() {
+    const grid = document.getElementById('bioGrid');
+    grid.innerHTML = '';
+    biografie.forEach((b, i) => {
+      const card = document.createElement('div');
+      card.className = 'bio-card';
+      card.innerHTML = `
+        <div class="bio-card-name">${b.name}</div>
+        ${b.role ? `<div class="bio-card-meta">${b.role}</div>` : ''}
+        ${b.note ? `<div class="bio-card-meta" style="margin-top:0.4rem;">${b.note}</div>` : ''}
+      `;
+      card.onclick = () => openBioDetail(i);
+      grid.appendChild(card);
+    });
+    // Add button
+    const addCard = document.createElement('div');
+    addCard.className = 'bio-card bio-card-add';
+    addCard.onclick = openModal;
+    addCard.innerHTML = `<span style="font-size:2rem;opacity:0.5;">＋</span><span>Aggiungi una biografia</span>`;
+    grid.appendChild(addCard);
+  }
+
+  function openBioDetail(index) {
+    const b = biografie[index];
+    document.getElementById('detail-name').textContent = b.name;
+    document.getElementById('detail-badge').textContent = b.role || 'Biografia';
+    navigateTo('bio-detail');
+  }
+
+  // ===== GLOSSARY =====
+  function addGlossaryEntry() {
+    const list = document.getElementById('glossaryList');
+    const entry = document.createElement('div');
+    entry.className = 'glossary-entry';
+    entry.innerHTML = `<span class="glossary-term" contenteditable="true">Termine</span> – <span contenteditable="true">definizione del termine.</span>`;
+    list.appendChild(entry);
+    entry.querySelector('.glossary-term').focus();
+  }
+
+  // ===== DOCUMENTO TABS =====
+  function showDoc(index, btn) {
+    document.querySelectorAll('.doc-section').forEach((s, i) => {
+      s.style.display = i === index ? 'block' : 'none';
+    });
+    document.querySelectorAll('.doc-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    window.scrollTo({ top: document.getElementById('page-documento').offsetTop - 70, behavior: 'smooth' });
+  }
+
+  // ===== KEYBOARD: close modal with Escape =====
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+  document.getElementById('bioModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('bioModal')) closeModal();
+  });
+</script>
+</body>
+</html>
